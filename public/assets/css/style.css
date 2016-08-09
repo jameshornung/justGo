@@ -59,11 +59,7 @@ body {
 }
 
 /* ///////// */
-
-
 /* CITY PAGE */
-
-
 /* ///////// */
 
 #cityTitle {
@@ -81,4 +77,16 @@ body {
    background-size: cover;
 }
 
+
+/* ///////// */
+/* FORM PAGE */
+/* ///////// */
+
+#formBG {
+    background-color: white;
+}
+
+h5 {
+    color: #676767 !important;
+}
 

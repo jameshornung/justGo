@@ -1,0 +1,150 @@
+<!-- <div>
+	<div>
+    	<h2>Enter Search Parameters:</h2>
+    	<form id="example-form" action="/formResponse" method="post">
+
+	     	<div>
+	        	<label for="city">City Name:</label>
+	        	<input type="text" id="city" name="city">
+	      	</div>
+
+	      	<div>
+	        	<label for="numBedrooms">Number of Bedrooms</label>
+	        	<input type="text" id="numBedrooms" name="numBedrooms">
+	      	</div>
+
+	      	<div>
+	        	<label for="maxRent">Max Nightly Rent:</label>
+	        	<input type="text" id="maxRent" name="maxRent">
+	      	</div>
+
+	      	<div>
+	        	<label for="minRent">Min Nightly Rent:</label>
+	        	<input type="text" id="minRent" name="minRent">
+	      	</div>
+
+      		<button id="submit-button" type="submit">Submit</button>
+    	</form>
+	</div>
+</div>
+      -->
+
+
+
+<div class = "container">
+<h2>Tell us about your trip.</h2>
+	<div class = 'row'>
+		<form class = 'col s12' id = "formBG">
+		<h5>What are you looking to do while you're visiting {{ city }}?</h5>
+			<!-- <div class = 'row'> -->
+				<!-- <form action="#"> -->
+	   				<div class = "row">
+	   					<div class = 'col s4'>
+			   				<p>
+			     		 		<input type="checkbox" id="shoppingCB" />
+			      		 		<label for="shoppingCB">Shopping</label>
+			   				</p>
+			   			</div>
+			   			<div class = 'col s4'>
+			   				<p>
+			     		 		<input type="checkbox" id="sightseeingCB" />
+			      		 		<label for="sightseeingCB">Sightseeing</label>
+			   				</p>
+			   			</div>
+			   			<div class = 'col s4'>
+			   				<p>
+			     		 		<input type="checkbox" id="musicCB" />
+			      		 		<label for="musicCB">Music &amp; The Arts</label>
+			   				</p>
+			   			</div>
+			   		
+		   			</div>
+		   			<div class = 'row'>
+		   				<div class = 'col s4'>
+			   				<p>
+			     		 		<input type="checkbox" id="sportsCB" />
+			      		 		<label for="sportsCB">Sporting Event</label>
+			   				</p>
+			   			</div>
+			   			<div class = 'col s4'>
+			   				<p>
+			     		 		<input type="checkbox" id="businessCB" />
+			      		 		<label for="businessCB">Business</label>
+			   				</p>
+			   			</div>
+			   			<div class = 'col s4'>
+			   				<p>
+			     		 		<input type="checkbox" id="foodCB" />
+			      		 		<label for="foodCB">Food</label>
+			   				</p>
+			   				</div>
+		   			</div>
+		   			<div class = 'row'>
+		   				<div class = 'col s4'>
+			   				<p>
+			     		 		<input type="checkbox" id="socialCB" />
+			      		 		<label for="socialCB">Social</label>
+			   				</p>
+			   			</div>
+			   			<div class = 'col s4'>
+			   				<p>
+			     		 		<input type="checkbox" id="partyCB" />
+			      		 		<label for="partyCB">Night Life</label>
+			   				</p>
+			   			</div>
+			   			<div class = 'col s4'>
+			   				<p>
+			     		 		<input type="checkbox" id="otherCB" />
+			      		 		<label for="otherCB">Other cultural event</label>
+			   				</p>
+			   				</div>
+		   			</div>
+		   	<br>	
+		   	<div class = 'row'>
+		   		<div class = 'col s6'>
+			   		<h5>How many people are traveling?</h5>
+			   		<div class="input-field">
+	    				<select>
+	      					<option value="" disabled selected>Choose your option</option>
+						    <option value="1">1</option>
+						    <option value="2">2</option>
+						    <option value="3">3</option>
+						    <option value="4">4</option>
+						    <option value="5">5</option>
+						    <option value="6">6</option>
+						    <option value="7">7</option>
+						    <option value="8">8</option>
+						    <option value="9">9</option>
+						    <option value="10">10</option>
+	    				</select>
+	 				</div>	
+		   		</div>
+		   		<div class = 'col s6'>
+		   			<h5>What's your budget?</h5>
+		   			<div class ='input-field'>
+		   				<select>
+		   					<option value="">Choose your option</option>
+						    <option value="1">Below $300</option>
+						    <option value="2">$300-$1000</option>
+						    <option value="3">$1000-$3000</option>
+						    <option value="4">$3000+</option>
+		   				</select>
+		   			</div>
+		   		</div>
+		   	</div>
+		   	<div class = 'row'>
+		   		
+		   	</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		$('select').material_select();
+	});
+</script>
+
+
+
+
