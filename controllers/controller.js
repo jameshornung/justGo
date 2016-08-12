@@ -47,7 +47,7 @@ router.get('/London', function(req, res, body) {
 });
 
 router.post('/listings', function(req, res) {
-    console.log('body = ', req.body);
+    // console.log('body = ', req.body);
    
     //PARAMETERS===================================================
 
@@ -143,24 +143,29 @@ router.post('/listings', function(req, res) {
     //London
      else{
         if(activity.includes('food') && activity.includes('party')){
-            latitude = '51.501495';
-            longitude = '-0.125663';
+            console.log('brick lane');
+            latitude = '51.523421';
+            longitude = '-0.071971';
         }
         else if(activity.includes('tourist') && activity.includes('shopping') && activity.includes('sport')){
-            latitude = '51.501495';
-            longitude = '-0.125663';
+            console.log('london eye');
+            latitude = '51.503281';
+            longitude = '-0.119071';
         }
         else if(activity.includes('work') && activity.includes('food') && activity.includes('arts')){
-            latitude = '51.501495';
-            longitude = '-0.125663';
+            console.log('canary wharf');
+            latitude = '51.504973';
+            longitude = '-0.018791';
         }
         else if(activity.includes('party') && activity.includes('arts')){
-            latitude = '51.501495';
-            longitude = '-0.125663';
+            console.log('covent garden');
+            latitude = '51.512506';
+            longitude = '-0.123313';
         }
         else{
-            latitude = '51.501495';
-            longitude = '-0.125663';
+            console.log('picadilly circus');
+            latitude = '51.510932';
+            longitude = '-0.135507';
         }
     };
 
@@ -175,7 +180,7 @@ router.post('/listings', function(req, res) {
             // availabilityEnd: yyy-MM-dd, 
             centerPointLongitude: longitude,
             centerPointLatitude: latitude,
-            distanceInKm: 2,
+            distanceInKm: 1,
             minNightlyPrice: min,
             maxNightlyPrice: max,
             sort: "averageRating", 
@@ -187,7 +192,7 @@ router.post('/listings', function(req, res) {
         }
     };
 
-    console.log('search = ', search);
+    // console.log('search = ', search);
     //Send Request
     
     request(search, function(error, response, body) {
