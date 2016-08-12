@@ -217,7 +217,7 @@ router.post('/listings', function(req, res) {
                     "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div></body></html>";
             }
             else {
-                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
+                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='result-body'><div id='wrapper'><a href='#'><div id='button-holder'><button id='result-button'>See Friends</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
                     "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
@@ -240,7 +240,7 @@ router.post('/listings', function(req, res) {
                     "<div class='result-display'><h2 class='headline'>" + resultArray[4].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[4].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[4].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[4].listing + "' target='_blank'>" + "View Listing" + "</a></div></body></html>";
+                    "<a class='result-link' href='" + resultArray[4].listing + "' target='_blank'>" + "View Listing" + "</a></div></div></body></html>";
             }
         };      
        res.send(display);
