@@ -168,7 +168,7 @@ router.post('/listings', function(req, res) {
         method: 'GET',
         url: 'https://ws.homeaway.com/public/search',
         qs: { 
-            // q: city,
+            q: city,
             minSleeps: sleeps, 
             // availabilityStart: yyyy-MM-dd,
             // availabilityEnd: yyy-MM-dd, 
