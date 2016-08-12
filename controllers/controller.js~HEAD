@@ -110,28 +110,28 @@ router.post('/listings', function(req, res) {
     //Paris
     else if(city === 'Paris'){
         if(activity.includes('food') && activity.includes('party')){
-            console.log('in paris');
-            latitude = '48.868986';
-            longitude = '2.343454';
+            console.log('park slope');
+            latitude = '40.674857';
+            longitude = '-73.976870';
         }
         else if(activity.includes('tourist') && activity.includes('shopping') && activity.includes('sport')){
-            console.log('in france');
-            latitude = '48.8414';
-            longitude = '2.2530';
+            console.log('times square');
+            latitude = '40.759106';
+            longitude = '-73.984273';
         }
         else if(activity.includes('work') && activity.includes('food') && activity.includes('arts')){
             console.log('tribeca');
-            latitude = '48.8897';
-            longitude = '2.2418';
+            latitude = '40.715248';
+            longitude = '-74.007532';
         }
         else if(activity.includes('party') && activity.includes('arts')){
-            console.log('france');
-            latitude = '48.868986';
-            longitude = '2.343454';
+            console.log('williamsburg');
+            latitude = '40.719621';
+            longitude = '-73.960038';
         }
         else{
-            latitude = '48.8584';
-            longitude = '2.2945';
+            latitude = '40.715248';
+            longitude = '-74.007532';
         }
     }
     //London
@@ -162,12 +162,13 @@ router.post('/listings', function(req, res) {
         }
     };
 
-    //CREATE SEARCH==================================================
+    //API CALL=====================================================
+    //Create Search Request
     var search = {
         method: 'GET',
         url: 'https://ws.homeaway.com/public/search',
         qs: { 
-            // q: city,
+            q: city,
             minSleeps: sleeps, 
             // availabilityStart: yyyy-MM-dd,
             // availabilityEnd: yyy-MM-dd, 
@@ -184,10 +185,8 @@ router.post('/listings', function(req, res) {
             authorization: 'Bearer NTZlNjYzZGYtNTYxNS00NWViLWFjZTQtOWY0ZDVlMmMwZjIz'
         }
     };
-
-    console.log('search = ', search);
     //Send Request
-    
+    console.log('search = ', search);
     request(search, function(error, response, body) {
         if (error) throw new Error(error);
 
@@ -197,8 +196,7 @@ router.post('/listings', function(req, res) {
         var numOfResults = results.entries.length;
         // console.log('# results = ', numOfResults)
         if (numOfResults === 0) {
-            var noResults="<div><h1 id='no-result'>Sorry, no results matched your search criteria.  Please try again.</h1><a href='/city'><button id='no-result-button action='/city'>Start Over</button></div></a>"
-            res.send(noResults);
+            res.redirect('/city');
         } 
         else {
             for (i = 0; i < numOfResults; i++) {
@@ -214,33 +212,33 @@ router.post('/listings', function(req, res) {
                 var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div></body></html>";
+                    "<a class='result-link' href='" + resultArray[0].listing + "'>" + "View Listing" + "</a></div></body></html>";
             }
             else {
                 var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
+                    "<a class='result-link' href='" + resultArray[0].listing + "'>" + "View Listing" + "</a></div>" +
 
                    "<div class='result-display'><h2 class='headline'>" + resultArray[1].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[1].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[1].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[1].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
+                    "<a class='result-link' href='" + resultArray[1].listing + "'>" + "View Listing" + "</a></div>" +
 
                     "<div class='result-display'><h2 class='headline'>" + resultArray[2].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[2].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[2].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[2].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
+                    "<a class='result-link' href='" + resultArray[2].listing + "'>" + "View Listing" + "</a></div>" +
 
                     "<div class='result-display'><h2 class='headline'>" + resultArray[3].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[3].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[3].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[3].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
+                    "<a class='result-link' href='" + resultArray[3].listing + "'>" + "View Listing" + "</a></div>" +
 
                     "<div class='result-display'><h2 class='headline'>" + resultArray[4].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[4].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[4].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[4].listing + "' target='_blank'>" + "View Listing" + "</a></div></body></html>";
+                    "<a class='result-link' href='" + resultArray[4].listing + "'>" + "View Listing" + "</a></div></body></html>";
             }
         };      
        res.send(display);
