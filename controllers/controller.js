@@ -194,7 +194,7 @@ router.post('/listings', function(req, res) {
         var resultArray = [];
 
         var numOfResults = results.entries.length;
-        // console.log('# results = ', numOfResults)
+        console.log('# results = ', numOfResults);
         if (numOfResults === 0) {
             res.redirect('/city');
         } 
