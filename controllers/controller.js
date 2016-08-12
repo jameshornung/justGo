@@ -82,53 +82,83 @@ router.post('/listings', function(req, res) {
 
     //New York
     if(city === 'New York'){
-        if(activity.includes('food') && activity.includes('party') || activity.includes('food') && activity.includes('party') && activity.includes('social') || activity.includes('food')){
+        if(activity.includes('food') && activity.includes('party')){
             console.log('park slope');
             latitude = '40.674857';
             longitude = '-73.976870';
         }
-        else if(activity.includes('tourist') && activity.includes('shopping') && activity.includes('social') && activity.includes('sport') || activity.includes('tourist') && activity.includes('shopping') && activity.includes('social') || activity.includes('tourist') && activity.includes('shopping') || activity.includes('tourist') || activity.includes('sport')){
+        else if(activity.includes('tourist') && activity.includes('shopping') && activity.includes('sport')){
             console.log('times square');
             latitude = '40.759106';
             longitude = '-73.984273';
         }
-        else if(activity.includes('work') && activity.includes('food') && activity.includes('arts') || activity.includes('work') && activity.includes('food') || activity.includes('work')){
+        else if(activity.includes('work') && activity.includes('food') && activity.includes('arts')){
             console.log('tribeca');
             latitude = '40.715248';
             longitude = '-74.007532';
         }
+        else if(activity.includes('party') && activity.includes('arts')){
+            console.log('williamsburg');
+            latitude = '40.719621';
+            longitude = '-73.960038';
+        }
         else{
+            latitude = '40.715248';
+            longitude = '-74.007532';
+        }
+    }
+    //Paris
+    else if(city === 'Paris'){
+        if(activity.includes('food') && activity.includes('party')){
+            console.log('park slope');
+            latitude = '40.674857';
+            longitude = '-73.976870';
+        }
+        else if(activity.includes('tourist') && activity.includes('shopping') && activity.includes('sport')){
+            console.log('times square');
             latitude = '40.759106';
             longitude = '-73.984273';
         }
+        else if(activity.includes('work') && activity.includes('food') && activity.includes('arts')){
+            console.log('tribeca');
+            latitude = '40.715248';
+            longitude = '-74.007532';
+        }
+        else if(activity.includes('party') && activity.includes('arts')){
+            console.log('williamsburg');
+            latitude = '40.719621';
+            longitude = '-73.960038';
+        }
+        else{
+            latitude = '40.715248';
+            longitude = '-74.007532';
+        }
     }
-    
-    //Paris
-
-
     //London
-
-    //API CALL=====================================================
-    //Create Search Request
-    var search = {
-        method: 'GET',
-        url: 'https://ws.homeaway.com/public/search',
-        qs: { 
-            // q: city,
-            minSleeps: sleeps, 
-            // availabilityStart: yyyy-MM-dd,
-            // availabilityEnd: yyy-MM-dd, 
-            centerPointLongitude: longitude,
-            centerPointLatitude: latitude,
-            distanceInKm: 2,
-            minNightlyPrice: min,
-            maxNightlyPrice: max,
-            sort: "averageRating", 
-            imageSize: "MEDIUM" 
-        },
-        headers: {
-            'cache-control': 'no-cache',
-            authorization: 'Bearer NTZlNjYzZGYtNTYxNS00NWViLWFjZTQtOWY0ZDVlMmMwZjIz'
+     else{
+        if(activity.includes('food') && activity.includes('party')){
+            console.log('park slope');
+            latitude = '40.674857';
+            longitude = '-73.976870';
+        }
+        else if(activity.includes('tourist') && activity.includes('shopping') && activity.includes('sport')){
+            console.log('times square');
+            latitude = '40.759106';
+            longitude = '-73.984273';
+        }
+        else if(activity.includes('work') && activity.includes('food') && activity.includes('arts')){
+            console.log('tribeca');
+            latitude = '40.715248';
+            longitude = '-74.007532';
+        }
+        else if(activity.includes('party') && activity.includes('arts')){
+            console.log('williamsburg');
+            latitude = '40.719621';
+            longitude = '-73.960038';
+        }
+        else{
+            latitude = '40.715248';
+            longitude = '-74.007532';
         }
     };
     //Send Request
