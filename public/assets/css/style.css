@@ -66,9 +66,9 @@ body {
 
 #cityTitle {
     font-size: 6em;
-    color: #157A97;
+    color: white;
     text-align: center;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Anton', sans-serif;
 }
 
 #cityBG {
@@ -103,6 +103,10 @@ input, label {
 #formTitle {
     font-family: 'Anton', sans-serif;
     font-size:5em;
+}
+
+.icon-grey {
+    color:#676767;
 }
 
 
