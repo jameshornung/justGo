@@ -140,7 +140,7 @@ input, label {
     border: 1px solid black;
     text-align: center;
     margin-bottom: 50px;
-    background-color: #fff;
+    background-color: aliceblue;
     color: rgba(0,0,0,0.87);
     padding-bottom: 10px;
 }
@@ -152,6 +152,7 @@ input, label {
 
 .home-photo {
     border: 1px solid gray;
+    width: 60%;
 }
 
 .result-description {
@@ -163,9 +164,10 @@ input, label {
 .result-link {
     text-align: center;
     text-decoration: none;
-    color: gray;
+    color: #26a69a;
 }
 
 .result-link:hover{
+    transition: color 0.2s ease-out;
     color: #F2871B;
 }

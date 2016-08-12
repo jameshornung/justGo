@@ -47,7 +47,7 @@ router.get('/London', function(req, res, body) {
 });
 
 router.post('/listings', function(req, res) {
-    console.log(req.body);
+    console.log('body = ', req.body);
    
     //PARAMETERS===================================================
 
@@ -60,18 +60,26 @@ router.post('/listings', function(req, res) {
     var end;
     var activity = req.body.myActivity;
 
-    //Determine minimum price point
-    if(max === '300'){
-        min = '0';
+    //Assign default values if nothing selected by user
+    if(!sleeps){
+        sleeps = '2';
     }
-    else if(max === '1000'){
+    if(!max){
+        max = '500';
+    }
+
+    //Determine minimum price point
+    if(max === '1000'){
         min = '300';
     }
     else if(max === '3000'){
         min = '1000';
     }
-    else{
+    else if(max === '10000'){
         min = '3000';
+    }
+    else{
+        min = '0';
     }
 
     //City Specific
