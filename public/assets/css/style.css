@@ -122,6 +122,7 @@ input, label {
 }
 
 .home-photo {
+    width: 80%;
     margin-right: auto;
     margin-left: auto;
     border: 1px solid black;

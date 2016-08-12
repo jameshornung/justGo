@@ -110,28 +110,28 @@ router.post('/listings', function(req, res) {
     //Paris
     else if(city === 'Paris'){
         if(activity.includes('food') && activity.includes('party')){
-            console.log('park slope');
-            latitude = '40.674857';
-            longitude = '-73.976870';
+            console.log('in paris');
+            latitude = '48.868986';
+            longitude = '2.343454';
         }
         else if(activity.includes('tourist') && activity.includes('shopping') && activity.includes('sport')){
-            console.log('times square');
-            latitude = '40.759106';
-            longitude = '-73.984273';
+            console.log('in france');
+            latitude = '48.8414';
+            longitude = '2.2530';
         }
         else if(activity.includes('work') && activity.includes('food') && activity.includes('arts')){
             console.log('tribeca');
-            latitude = '40.715248';
-            longitude = '-74.007532';
+            latitude = '48.8897';
+            longitude = '2.2418';
         }
         else if(activity.includes('party') && activity.includes('arts')){
-            console.log('williamsburg');
-            latitude = '40.719621';
-            longitude = '-73.960038';
+            console.log('france');
+            latitude = '48.868986';
+            longitude = '2.343454';
         }
         else{
-            latitude = '40.715248';
-            longitude = '-74.007532';
+            latitude = '48.8584';
+            longitude = '2.2945';
         }
     }
     //London
@@ -161,8 +161,33 @@ router.post('/listings', function(req, res) {
             longitude = '-74.007532';
         }
     };
-    //Send Request
+
+    //CREATE SEARCH==================================================
+    var search = {
+        method: 'GET',
+        url: 'https://ws.homeaway.com/public/search',
+        qs: { 
+            q: city,
+            minSleeps: sleeps, 
+            // availabilityStart: yyyy-MM-dd,
+            // availabilityEnd: yyy-MM-dd, 
+            centerPointLongitude: longitude,
+            centerPointLatitude: latitude,
+            distanceInKm: 2,
+            minNightlyPrice: min,
+            maxNightlyPrice: max,
+            sort: "averageRating", 
+            imageSize: "MEDIUM" 
+        },
+        headers: {
+            'cache-control': 'no-cache',
+            authorization: 'Bearer NTZlNjYzZGYtNTYxNS00NWViLWFjZTQtOWY0ZDVlMmMwZjIz'
+        }
+    };
+
     console.log('search = ', search);
+    //Send Request
+    
     request(search, function(error, response, body) {
         if (error) throw new Error(error);
 
@@ -172,7 +197,8 @@ router.post('/listings', function(req, res) {
         var numOfResults = results.entries.length;
         // console.log('# results = ', numOfResults)
         if (numOfResults === 0) {
-            res.redirect('/city');
+            var noResults="<div><h1 id='no-result'>Sorry, no results matched your search criteria.  Please try again.</h1><a href='/city'><button id='no-result-button action='/city'>Start Over</button></div></a>"
+            res.send(noResults);
         } 
         else {
             for (i = 0; i < numOfResults; i++) {
