@@ -70,6 +70,10 @@ body {
     color: gray;
 }
 
+.brand-logo {
+    padding-left:15px;
+}
+
 
 /* ///////// */
 /* FORM PAGE */
@@ -103,13 +107,13 @@ input, label {
 
 #bigApple{
     margin: 0px;
-    background-image: url("../images/bg/timesSquare.jpg");
+    background-image: url("../images/bg/newYorkCity.jpeg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     text-align: center;
-    font-family: arial, 'Avant Garde', helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 #eiffel{
@@ -120,18 +124,18 @@ input, label {
     background-repeat: no-repeat;
     background-attachment: fixed;
     text-align: center;
-    font-family: arial, 'Avant Garde', helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 #bigBen{
     margin: 0px;
-    background-image: url("../images/bg/london.jpg");
+    background-image: url("../images/bg/1.jpg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     text-align: center;
-    font-family: arial, 'Avant Garde', helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .result-btn{
@@ -161,7 +165,7 @@ input, label {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     text-align: center;
     margin-bottom: 50px;
     background-color: aliceblue;
@@ -172,6 +176,8 @@ input, label {
 .headline {
     text-align: center;
     color: black;
+    font-family: 'Roboto', sans-serif;
+    margin-top:3px;
 }
 
 .home-photo {
