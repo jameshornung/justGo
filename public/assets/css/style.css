@@ -79,9 +79,6 @@ body {
 /* FORM PAGE */
 /* ///////// */
 
-/*#formBG {
-    background-color: white;
-}*/
 
 h5 {
     color: #676767;
@@ -235,4 +232,18 @@ input, label {
 #startOver:hover{
     transition: background-color 0.2s ease-out;
     background-color: #F2871B;
+}
+
+
+/* //////////// */
+/* FRIENDS PAGE */
+/* //////////// */
+
+.friendsText {
+    color: #676767;
+}
+
+#friendTitle {
+    font-size:5em;
+    font-family: 'Anton', sans-serif;
 }
