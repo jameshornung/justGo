@@ -17,6 +17,7 @@ var authorize = {
 
 //global variable to hold selected city
 var city;
+var cityId;
 
 //===================================================================
 
@@ -47,7 +48,7 @@ router.get('/London', function(req, res, body) {
 });
 
 router.post('/listings', function(req, res) {
-    console.log(req.body);
+    // console.log('body = ', req.body);
    
     //PARAMETERS===================================================
 
@@ -58,30 +59,38 @@ router.post('/listings', function(req, res) {
     var city = req.body.city;
     var start;
     var end;
+    var activity = req.body.myActivity;
+
+    //Assign default values if nothing selected by user
+    if(!sleeps){
+        sleeps = '2';
+    }
+    if(!max){
+        max = '500';
+    }
 
     //Determine minimum price point
-    if(max === '300'){
-        min = '0';
-    }
-    else if(max === '1000'){
+    if(max === '1000'){
         min = '300';
     }
     else if(max === '3000'){
         min = '1000';
     }
-    else{
+    else if(max === '10000'){
         min = '3000';
+    }
+    else{
+        min = '0';
     }
 
     //City Specific
     var longitude;
     var latitude;
 
-    var activity = req.body.myActivity;
-    console.log(activity);
-
     //New York
     if(city === 'New York'){
+        cityId = 'bigApple';
+
         if(activity.includes('food') && activity.includes('party')){
             console.log('park slope');
             latitude = '40.674857';
@@ -109,72 +118,76 @@ router.post('/listings', function(req, res) {
     }
     //Paris
     else if(city === 'Paris'){
+        cityId = 'eiffel';
+
         if(activity.includes('food') && activity.includes('party')){
-            console.log('park slope');
-            latitude = '40.674857';
-            longitude = '-73.976870';
+            console.log('in paris');
+            latitude = '48.868986';
+            longitude = '2.343454';
         }
         else if(activity.includes('tourist') && activity.includes('shopping') && activity.includes('sport')){
-            console.log('times square');
-            latitude = '40.759106';
-            longitude = '-73.984273';
+            console.log('in france');
+            latitude = '48.8414';
+            longitude = '2.2530';
         }
         else if(activity.includes('work') && activity.includes('food') && activity.includes('arts')){
             console.log('tribeca');
-            latitude = '40.715248';
-            longitude = '-74.007532';
+            latitude = '48.8897';
+            longitude = '2.2418';
         }
         else if(activity.includes('party') && activity.includes('arts')){
-            console.log('williamsburg');
-            latitude = '40.719621';
-            longitude = '-73.960038';
+            console.log('france');
+            latitude = '48.868986';
+            longitude = '2.343454';
         }
         else{
-            latitude = '40.715248';
-            longitude = '-74.007532';
+            latitude = '48.8584';
+            longitude = '2.2945';
         }
     }
     //London
      else{
+        cityId = 'bigBen';
+
         if(activity.includes('food') && activity.includes('party')){
-            console.log('park slope');
-            latitude = '40.674857';
-            longitude = '-73.976870';
+            console.log('brick lane');
+            latitude = '51.523421';
+            longitude = '-0.071971';
         }
         else if(activity.includes('tourist') && activity.includes('shopping') && activity.includes('sport')){
-            console.log('times square');
-            latitude = '40.759106';
-            longitude = '-73.984273';
+            console.log('london eye');
+            latitude = '51.503281';
+            longitude = '-0.119071';
         }
         else if(activity.includes('work') && activity.includes('food') && activity.includes('arts')){
-            console.log('tribeca');
-            latitude = '40.715248';
-            longitude = '-74.007532';
+            console.log('canary wharf');
+            latitude = '51.504973';
+            longitude = '-0.018791';
         }
         else if(activity.includes('party') && activity.includes('arts')){
-            console.log('williamsburg');
-            latitude = '40.719621';
-            longitude = '-73.960038';
+            console.log('covent garden');
+            latitude = '51.512506';
+            longitude = '-0.123313';
         }
         else{
-            latitude = '40.715248';
-            longitude = '-74.007532';
+            console.log('picadilly circus');
+            latitude = '51.510932';
+            longitude = '-0.135507';
         }
     };
 
-    //API CALL=====================================================
-    //Create Search Request
+    //CREATE SEARCH==================================================
     var search = {
         method: 'GET',
         url: 'https://ws.homeaway.com/public/search',
         qs: { 
-            q: city,
+            // q: city,
             minSleeps: sleeps, 
             // availabilityStart: yyyy-MM-dd,
             // availabilityEnd: yyy-MM-dd, 
             centerPointLongitude: longitude,
             centerPointLatitude: latitude,
-            distanceInKm: 2,
+            distanceInKm: 1,
             minNightlyPrice: min,
             maxNightlyPrice: max,
             sort: "averageRating", 
@@ -185,8 +198,10 @@ router.post('/listings', function(req, res) {
             authorization: 'Bearer NTZlNjYzZGYtNTYxNS00NWViLWFjZTQtOWY0ZDVlMmMwZjIz'
         }
     };
+
+    // console.log('search = ', search);
     //Send Request
-    console.log('search = ', search);
+    
     request(search, function(error, response, body) {
         if (error) throw new Error(error);
 
@@ -196,7 +211,8 @@ router.post('/listings', function(req, res) {
         var numOfResults = results.entries.length;
         // console.log('# results = ', numOfResults)
         if (numOfResults === 0) {
-            res.redirect('/city');
+            var noResults="<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='no-results-text'><h1 id='no-result'>Sorry, no results matched your search criteria.  Please try again.</h1><a href='/city'><button id='startOver' action='/city'>Start Over</button></a></div></body></html>"
+            res.send(noResults);
         } 
         else {
             for (i = 0; i < numOfResults; i++) {
@@ -209,36 +225,36 @@ router.post('/listings', function(req, res) {
                 resultArray.push(resultObject);
             }
             if(numOfResults < 5){
-                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
+                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='wrapper'><div id='button-holder'><a href='#'><button class='result-btn'>SEE FRIENDS</button></a><a href='/city'><button class='result-btn'>SEARCH AGAIN</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[0].listing + "'>" + "View Listing" + "</a></div></body></html>";
+                    "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div></body></html>";
             }
             else {
-                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
+                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='wrapper'><div id='button-holder'><a href='#'><button class='result-btn'>SEE FRIENDS</button></a><a href='/city'><button class='result-btn'>SEARCH AGAIN</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[0].listing + "'>" + "View Listing" + "</a></div>" +
+                    "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
 
                    "<div class='result-display'><h2 class='headline'>" + resultArray[1].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[1].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[1].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[1].listing + "'>" + "View Listing" + "</a></div>" +
+                    "<a class='result-link' href='" + resultArray[1].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
 
                     "<div class='result-display'><h2 class='headline'>" + resultArray[2].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[2].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[2].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[2].listing + "'>" + "View Listing" + "</a></div>" +
+                    "<a class='result-link' href='" + resultArray[2].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
 
                     "<div class='result-display'><h2 class='headline'>" + resultArray[3].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[3].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[3].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[3].listing + "'>" + "View Listing" + "</a></div>" +
+                    "<a class='result-link' href='" + resultArray[3].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
 
                     "<div class='result-display'><h2 class='headline'>" + resultArray[4].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[4].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[4].description + "</p><br>" +
-                    "<a class='result-link' href='" + resultArray[4].listing + "'>" + "View Listing" + "</a></div></body></html>";
+                    "<a class='result-link' href='" + resultArray[4].listing + "' target='_blank'>" + "View Listing" + "</a></div></div></body></html>";
             }
         };      
        res.send(display);
