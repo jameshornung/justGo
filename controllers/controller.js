@@ -17,6 +17,7 @@ var authorize = {
 
 //global variable to hold selected city
 var city;
+var cityId;
 
 //===================================================================
 
@@ -88,6 +89,8 @@ router.post('/listings', function(req, res) {
 
     //New York
     if(city === 'New York'){
+        cityId = 'bigApple';
+
         if(activity.includes('food') && activity.includes('party')){
             console.log('park slope');
             latitude = '40.674857';
@@ -115,6 +118,8 @@ router.post('/listings', function(req, res) {
     }
     //Paris
     else if(city === 'Paris'){
+        cityId = 'eiffel';
+
         if(activity.includes('food') && activity.includes('party')){
             console.log('in paris');
             latitude = '48.868986';
@@ -142,6 +147,8 @@ router.post('/listings', function(req, res) {
     }
     //London
      else{
+        cityId = 'bigBen';
+
         if(activity.includes('food') && activity.includes('party')){
             console.log('brick lane');
             latitude = '51.523421';
@@ -218,13 +225,13 @@ router.post('/listings', function(req, res) {
                 resultArray.push(resultObject);
             }
             if(numOfResults < 5){
-                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
+                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='wrapper'><div id='button-holder'><a href='#'><button class='result-btn'>SEE FRIENDS</button></a><a href='/city'><button class='result-btn'>SEARCH AGAIN</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
                     "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div></body></html>";
             }
             else {
-                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='result-body'><div id='wrapper'><a href='#'><div id='button-holder'><button id='result-button'>SEE FRIENDS</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
+                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='wrapper'><div id='button-holder'><a href='#'><button class='result-btn'>SEE FRIENDS</button></a><a href='/city'><button class='result-btn'>SEARCH AGAIN</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
                     "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +

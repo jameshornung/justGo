@@ -101,9 +101,9 @@ input, label {
 /* RESULTS PAGE */
 /* //////////// */
 
-#result-body{
+#bigApple{
     margin: 0px;
-    background-image: url("../images/bg/3.jpg");
+    background-image: url("../images/bg/timesSquare.jpg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -112,11 +112,33 @@ input, label {
     font-family: arial, 'Avant Garde', helvetica, sans-serif;
 }
 
-#result-button{
+#eiffel{
+    margin: 0px;
+    background-image: url("../images/bg/paris.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    text-align: center;
+    font-family: arial, 'Avant Garde', helvetica, sans-serif;
+}
+
+#bigBen{
+    margin: 0px;
+    background-image: url("../images/bg/london.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    text-align: center;
+    font-family: arial, 'Avant Garde', helvetica, sans-serif;
+}
+
+.result-btn{
     margin-top: 65px;
     margin-bottom: 65px;
-    width: 155px;
-    height: 35px;
+    width: 175px;
+    height: 40px;
     background-color: #26a69a;
     color: #fff;
     text-align: center;
@@ -126,9 +148,11 @@ input, label {
     line-height: 35px;
     font-size: 15px;
     border: none;
+    margin-right: 15px;
+    margin-left: 15px;
 }
 
-#result-button:hover{
+.result-btn:hover{
     transition: background-color 0.2s ease-out;
     background-color: #F2871B;
 }
