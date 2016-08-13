@@ -33,7 +33,6 @@ router.get('/city', function(req, res, body) {
     res.render('city');
 });
 
-
 router.get('/NYC', function(req, res, body) {
     console.log(req.params);
     res.render('form');
@@ -45,6 +44,10 @@ router.get('/Paris', function(req, res, body) {
 
 router.get('/London', function(req, res, body) {
     res.render('form');
+});
+
+router.get('/friends', function(req,res, body){
+    res.render('friends');
 });
 
 router.post('/listings', function(req, res) {
