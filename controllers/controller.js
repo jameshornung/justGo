@@ -50,6 +50,12 @@ router.get('/friends', function(req,res, body){
     res.render('friends');
 });
 
+router.get('/sequelize', function(req,res, body){
+    res.render('sequelize');
+});
+
+
+
 router.post('/listings', function(req, res) {
     // console.log('body = ', req.body);
    
