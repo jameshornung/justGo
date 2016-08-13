@@ -175,6 +175,7 @@ input, label {
     color: black;
     font-family: 'Roboto', sans-serif;
     margin-top:3px;
+    padding-top:15px;
 }
 
 .home-photo {
