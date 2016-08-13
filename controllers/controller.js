@@ -211,7 +211,7 @@ router.post('/listings', function(req, res) {
         var numOfResults = results.entries.length;
         // console.log('# results = ', numOfResults)
         if (numOfResults === 0) {
-            var noResults="<div><h1 id='no-result'>Sorry, no results matched your search criteria.  Please try again.</h1><a href='/city'><button id='no-result-button action='/city'>Start Over</button></div></a>"
+            var noResults="<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='no-results-text'><h1 id='no-result'>Sorry, no results matched your search criteria.  Please try again.</h1><a href='/city'><button id='startOver' action='/city'>Start Over</button></a></div></body></html>"
             res.send(noResults);
         } 
         else {
