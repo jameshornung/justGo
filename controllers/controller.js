@@ -185,6 +185,26 @@ router.post('/listings', function(req, res) {
         }
     };
 
+    //INSERT DATA TO SQL AND MATCH USERS
+ 
+ var records = "";
+
+ for(var i = 0; i < activity.length; i++) {
+     sequelize.query("SELECT * from users WHERE city = '"+city+"' AND categories LIKE CONCAT('%', activity[i], '%')", { type: sequelize.QueryTypes.SELECT})
+         .then(function(logs){ 
+             records += logs;
+             matchCount += logs.length;
+         
+         }); 
+     }
+ 
+ console.log("--------------------------Priniting matched users-----------------------");
+ console.log(records);
+     
+ //INSERT DATA TO SQL
+ 
+ sequelize.query("INSERT INTO users(name, lastname, email, phone, city, categories, createdAt, updatedAt) VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"',  '"+req.body.tel+"', '"+req.body.city+"', , '"+JSON.stringify(activity)+"', 'test', 'test')");
+
     //CREATE SEARCH==================================================
     var search = {
         method: 'GET',
@@ -218,7 +238,7 @@ router.post('/listings', function(req, res) {
         var resultArray = [];
 
         var numOfResults = results.entries.length;
-        // console.log('# results = ', numOfResults)
+        console.log('# results = ', numOfResults);
         if (numOfResults === 0) {
             var noResults="<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='no-results-text'><h1 id='no-result'>Sorry, no results matched your search criteria.  Please try again.</h1><a href='/city'><button id='startOver' action='/city'>Start Over</button></a></div></body></html>"
             res.send(noResults);
