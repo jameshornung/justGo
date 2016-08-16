@@ -70,10 +70,6 @@ body {
     color: gray;
 }
 
-.brand-logo {
-    padding-left:15px;
-}
-
 
 /* ///////// */
 /* FORM PAGE */
@@ -105,44 +101,22 @@ input, label {
 /* RESULTS PAGE */
 /* //////////// */
 
-#bigApple{
+#result-body{
     margin: 0px;
-    background-image: url("../images/bg/newYorkCity.jpeg");
+    background-image: url("../images/bg/3.jpg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     text-align: center;
-    font-family: 'Roboto', sans-serif;
+    font-family: arial, 'Avant Garde', helvetica, sans-serif;
 }
 
-#eiffel{
-    margin: 0px;
-    background-image: url("../images/bg/paris.jpg");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-}
-
-#bigBen{
-    margin: 0px;
-    background-image: url("../images/bg/1.jpg");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-}
-
-.result-btn{
+#result-button{
     margin-top: 65px;
     margin-bottom: 65px;
-    width: 175px;
-    height: 40px;
+    width: 155px;
+    height: 35px;
     background-color: #26a69a;
     color: #fff;
     text-align: center;
@@ -152,11 +126,9 @@ input, label {
     line-height: 35px;
     font-size: 15px;
     border: none;
-    margin-right: 15px;
-    margin-left: 15px;
 }
 
-.result-btn:hover{
+#result-button:hover{
     transition: background-color 0.2s ease-out;
     background-color: #F2871B;
 }
@@ -165,10 +137,10 @@ input, label {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
-    /*border: 1px solid black;*/
+    border: 1px solid black;
     text-align: center;
     margin-bottom: 50px;
-    background-color: aliceblue;
+    background-color: #fff;
     color: rgba(0,0,0,0.87);
     padding-bottom: 10px;
 }
@@ -176,13 +148,10 @@ input, label {
 .headline {
     text-align: center;
     color: black;
-    font-family: 'Roboto', sans-serif;
-    margin-top:3px;
 }
 
 .home-photo {
     border: 1px solid gray;
-    width: 60%;
 }
 
 .result-description {
@@ -194,45 +163,9 @@ input, label {
 .result-link {
     text-align: center;
     text-decoration: none;
-    color: #26a69a;
+    color: gray;
 }
 
 .result-link:hover{
-    transition: color 0.2s ease-out;
     color: #F2871B;
-}
-
-#no-result{
-    padding: 12px;
-}
-
-#no-results-text{
-    margin-top: 100px;
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: aliceblue;
-}
-
-#startOver{
-    margin-top: 15px;
-    margin-bottom: 15px;
-    width: 175px;
-    height: 40px;
-    background-color: #26a69a;
-    color: #fff;
-    text-align: center;
-    letter-spacing: .5px;
-    border-radius: 2px;
-    outline: 0;
-    line-height: 35px;
-    font-size: 15px;
-    border: none;
-    margin-right: 15px;
-    margin-left: 15px;
-}
-
-#startOver:hover{
-    transition: background-color 0.2s ease-out;
-    background-color: #F2871B;
 }

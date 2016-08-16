@@ -5,6 +5,11 @@ var router = express.Router();
 var request = require('request');
 var selection =require('../public/assets/js/cityPicker.js');
 
+var Sequelize = require('sequelize');
+
+// Change database, username, and password
+var sequelize = new Sequelize('users_db', 'root');
+
 //Obtains Athorization for HomeAway API  
 var authorize = {
     method: 'POST',
@@ -17,7 +22,6 @@ var authorize = {
 
 //global variable to hold selected city
 var city;
-var cityId;
 
 //===================================================================
 
@@ -48,7 +52,9 @@ router.get('/London', function(req, res, body) {
 });
 
 router.post('/listings', function(req, res) {
-    // console.log('body = ', req.body);
+    console.log(req.body);
+
+    
    
     //PARAMETERS===================================================
 
@@ -61,26 +67,18 @@ router.post('/listings', function(req, res) {
     var end;
     var activity = req.body.myActivity;
 
-    //Assign default values if nothing selected by user
-    if(!sleeps){
-        sleeps = '2';
-    }
-    if(!max){
-        max = '500';
-    }
-
     //Determine minimum price point
-    if(max === '1000'){
+    if(max === '300'){
+        min = '0';
+    }
+    else if(max === '1000'){
         min = '300';
     }
     else if(max === '3000'){
         min = '1000';
     }
-    else if(max === '10000'){
-        min = '3000';
-    }
     else{
-        min = '0';
+        min = '3000';
     }
 
     //City Specific
@@ -89,8 +87,6 @@ router.post('/listings', function(req, res) {
 
     //New York
     if(city === 'New York'){
-        cityId = 'bigApple';
-
         if(activity.includes('food') && activity.includes('party')){
             console.log('park slope');
             latitude = '40.674857';
@@ -118,8 +114,6 @@ router.post('/listings', function(req, res) {
     }
     //Paris
     else if(city === 'Paris'){
-        cityId = 'eiffel';
-
         if(activity.includes('food') && activity.includes('party')){
             console.log('in paris');
             latitude = '48.868986';
@@ -147,34 +141,48 @@ router.post('/listings', function(req, res) {
     }
     //London
      else{
-        cityId = 'bigBen';
-
         if(activity.includes('food') && activity.includes('party')){
-            console.log('brick lane');
-            latitude = '51.523421';
-            longitude = '-0.071971';
+            latitude = '51.501495';
+            longitude = '-0.125663';
         }
         else if(activity.includes('tourist') && activity.includes('shopping') && activity.includes('sport')){
-            console.log('london eye');
-            latitude = '51.503281';
-            longitude = '-0.119071';
+            latitude = '51.501495';
+            longitude = '-0.125663';
         }
         else if(activity.includes('work') && activity.includes('food') && activity.includes('arts')){
-            console.log('canary wharf');
-            latitude = '51.504973';
-            longitude = '-0.018791';
+            latitude = '51.501495';
+            longitude = '-0.125663';
         }
         else if(activity.includes('party') && activity.includes('arts')){
-            console.log('covent garden');
-            latitude = '51.512506';
-            longitude = '-0.123313';
+            latitude = '51.501495';
+            longitude = '-0.125663';
         }
         else{
-            console.log('picadilly circus');
-            latitude = '51.510932';
-            longitude = '-0.135507';
+            latitude = '51.501495';
+            longitude = '-0.125663';
         }
     };
+
+//INSERT DATA TO SQL AND MATCH USERS
+
+var records = "";
+for(var i = 0; i < activity.length; i++) {
+sequelize.query("SELECT * from users WHERE city = '"+city+"' AND categories LIKE CONCAT('%', activity[i], '%')", { type: sequelize.QueryTypes.SELECT})
+    .then(function(logs){ 
+        records += logs;
+        matchCount += logs.length;
+    
+    }); 
+}
+
+console.log("--------------------------Priniting matched users-----------------------");
+console.log(records);
+    
+//INSERT DATA TO SQL
+
+sequelize.query("INSERT INTO users(name, lastname, email, phone, city, categories, createdAt, updatedAt) VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"',  '"+req.body.tel+"', '"+req.body.city+"', , '"+JSON.stringify(activity)+"', 'test', 'test')");
+
+
 
     //CREATE SEARCH==================================================
     var search = {
@@ -187,7 +195,7 @@ router.post('/listings', function(req, res) {
             // availabilityEnd: yyy-MM-dd, 
             centerPointLongitude: longitude,
             centerPointLatitude: latitude,
-            distanceInKm: 1,
+            distanceInKm: 2,
             minNightlyPrice: min,
             maxNightlyPrice: max,
             sort: "averageRating", 
@@ -199,7 +207,7 @@ router.post('/listings', function(req, res) {
         }
     };
 
-    // console.log('search = ', search);
+    console.log('search = ', search);
     //Send Request
     
     request(search, function(error, response, body) {
@@ -211,7 +219,7 @@ router.post('/listings', function(req, res) {
         var numOfResults = results.entries.length;
         // console.log('# results = ', numOfResults)
         if (numOfResults === 0) {
-            var noResults="<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='no-results-text'><h1 id='no-result'>Sorry, no results matched your search criteria.  Please try again.</h1><a href='/city'><button id='startOver' action='/city'>Start Over</button></a></div></body></html>"
+            var noResults="<div><h1 id='no-result'>Sorry, no results matched your search criteria.  Please try again.</h1><a href='/city'><button id='no-result-button action='/city'>Start Over</button></div></a>"
             res.send(noResults);
         } 
         else {
@@ -225,13 +233,13 @@ router.post('/listings', function(req, res) {
                 resultArray.push(resultObject);
             }
             if(numOfResults < 5){
-                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='wrapper'><div id='button-holder'><a href='#'><button class='result-btn'>SEE FRIENDS</button></a><a href='/city'><button class='result-btn'>SEARCH AGAIN</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
+                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
                     "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div></body></html>";
             }
             else {
-                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='wrapper'><div id='button-holder'><a href='#'><button class='result-btn'>SEE FRIENDS</button></a><a href='/city'><button class='result-btn'>SEARCH AGAIN</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
+                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='result-body'><div id='wrapper'><a href='#'><div id='button-holder'><button id='result-button'>SEE FRIENDS</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
                     "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
@@ -256,7 +264,8 @@ router.post('/listings', function(req, res) {
                     "<p class='result-description'>" + resultArray[4].description + "</p><br>" +
                     "<a class='result-link' href='" + resultArray[4].listing + "' target='_blank'>" + "View Listing" + "</a></div></div></body></html>";
             }
-        };      
+        };
+       //isplay += "<h1>There are " + matchCount + " people visiting this city for the same reason as you!</h1>";      
        res.send(display);
     });    
 });
