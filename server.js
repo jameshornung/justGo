@@ -11,7 +11,7 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(process.cwd() + '/public'));
 
-var routes = require('./controllers/controll.js');
+var routes = require('./controllers/controller.js');
 app.use('/', routes);
 
 //MAKE THE CONNECTION=================================================
