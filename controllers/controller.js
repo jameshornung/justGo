@@ -185,6 +185,26 @@ router.post('/listings', function(req, res) {
         }
     };
 
+    //INSERT DATA TO SQL AND MATCH USERS
+ 
+ var records = "";
+
+ for(var i = 0; i < activity.length; i++) {
+     sequelize.query("SELECT * from users WHERE city = '"+city+"' AND categories LIKE CONCAT('%', activity[i], '%')", { type: sequelize.QueryTypes.SELECT})
+         .then(function(logs){ 
+             records += logs;
+             matchCount += logs.length;
+         
+         }); 
+     }
+ 
+ console.log("--------------------------Priniting matched users-----------------------");
+ console.log(records);
+     
+ //INSERT DATA TO SQL
+ 
+ sequelize.query("INSERT INTO users(name, lastname, email, phone, city, categories, createdAt, updatedAt) VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"',  '"+req.body.tel+"', '"+req.body.city+"', , '"+JSON.stringify(activity)+"', 'test', 'test')");
+
     //CREATE SEARCH==================================================
     var search = {
         method: 'GET',
