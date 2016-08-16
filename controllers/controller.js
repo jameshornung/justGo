@@ -5,6 +5,11 @@ var router = express.Router();
 var request = require('request');
 var selection =require('../public/assets/js/cityPicker.js');
 
+var Sequelize = require('sequelize');
+
+// Change database, username, and password
+var sequelize = new Sequelize('users_db', 'root');
+
 //Obtains Athorization for HomeAway API  
 var authorize = {
     method: 'POST',
