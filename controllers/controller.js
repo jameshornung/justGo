@@ -192,23 +192,23 @@ router.post('/listings', function(req, res) {
 
     //INSERT DATA TO SQL AND MATCH USERS
  
- var records = "";
+ // var records = "";
 
- for(var i = 0; i < activity.length; i++) {
-     sequelize.query("SELECT * from users WHERE city = '"+city+"' AND categories LIKE CONCAT('%', activity[i], '%')", { type: sequelize.QueryTypes.SELECT})
-         .then(function(logs){ 
-             records += logs;
-             matchCount += logs.length;
+ // for(var i = 0; i < activity.length; i++) {
+ //     sequelize.query("SELECT * from users WHERE city = '"+city+"' AND categories LIKE CONCAT('%', activity[i], '%')", { type: sequelize.QueryTypes.SELECT})
+ //         .then(function(logs){ 
+ //             records += logs;
+ //             matchCount += logs.length;
          
-         }); 
-     }
+ //         }); 
+ //     }
  
- console.log("--------------------------Priniting matched users-----------------------");
- console.log(records);
+ // console.log("--------------------------Priniting matched users-----------------------");
+ // console.log(records);
      
- //INSERT DATA TO SQL
+ // //INSERT DATA TO SQL
  
- sequelize.query("INSERT INTO users(name, lastname, email, phone, city, categories, createdAt, updatedAt) VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"',  '"+req.body.tel+"', '"+req.body.city+"', , '"+JSON.stringify(activity)+"', 'test', 'test')");
+ // sequelize.query("INSERT INTO users(name, lastname, email, phone, city, categories, createdAt, updatedAt) VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"',  '"+req.body.tel+"', '"+req.body.city+"', , '"+JSON.stringify(activity)+"', 'test', 'test')");
 
     //CREATE SEARCH==================================================
     var search = {
@@ -259,13 +259,13 @@ router.post('/listings', function(req, res) {
                 resultArray.push(resultObject);
             }
             if(numOfResults < 5){
-                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='wrapper'><div id='button-holder'><a href='/friends'><button class='result-btn'>SEE FRIENDS</button></a><a href='/city'><button class='result-btn'>SEARCH AGAIN</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
+                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='wrapper'><div id='button-holder'><a href='/city'><button class='result-btn'>SEARCH AGAIN</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
                     "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div></body></html>";
             }
             else {
-                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='wrapper'><div id='button-holder'><a href='/friends'><button class='result-btn'>SEE FRIENDS</button></a><a href='/city'><button class='result-btn'>SEARCH AGAIN</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
+                var display = "<html><head><link rel='stylesheet' type='text/css' href='/assets/css/style.css'></head><body id='" + cityId + "'><div id='wrapper'><div id='button-holder'><a href='/city'><button class='result-btn'>SEARCH AGAIN</button></a></div><div class='result-display'><h2 class='headline'>" + resultArray[0].headline + "</h2>" + "<br>" +
                     "<img class='home-photo' src=" + resultArray[0].image + ">" + "<br>" +
                     "<p class='result-description'>" + resultArray[0].description + "</p><br>" +
                     "<a class='result-link' href='" + resultArray[0].listing + "' target='_blank'>" + "View Listing" + "</a></div>" +
